@@ -36,6 +36,12 @@ and open the template in the editor.
     
 }
 
+.btn-primary:disabled {
+    color: var(--text-color);
+    border-color: var(--main-color);
+    background-color: var(--main-accent);
+}
+
 .btn-primary:hover {
     border-color: var(--main-accent-light);
     background-color: var(--main-accent-light);

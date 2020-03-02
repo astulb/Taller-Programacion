@@ -4,7 +4,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="css/bs4Override.css">
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/homeStyle.css">
 
         <meta charset="utf-8">
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -17,63 +17,28 @@
     </head>
     <body>
             
-      {include file="navbar.tpl"}
-      <div id="background-image" ><img src="img/backgroundImg.jpg"></div>    
-      <div id="background-overlay"></div>
-
+        {include file="navbar.tpl"}
+        <div id="background-image" ><img src="img/backgroundImg.jpg"></div>    
+        <div id="background-overlay"></div>
             
+        <div class="main-content">
+            <div id="paginacion">
+                <button  class="previous btn btn-primary" {if ($pagina<=1)}disabled{/if}>Previous</button>
+                {$pagina}1 / 3{$paginas}
+                <button  class="next btn btn-primary" {if ($pagina>=$paginas)}disabled{/if}>Next</button>
+            </div> 
             
+            <div id="movies">
+                {include file="movieCard.tpl"}            
+            </div>
+        </div>
     </body>
 </html>
-    
-    
+
 
     
     
     
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
         
         {*{include file="encabezado.tpl"}
         <div id="menu">
