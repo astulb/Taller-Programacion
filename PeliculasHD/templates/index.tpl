@@ -29,7 +29,7 @@
             </div> 
             
             <div id="movies">
-                {include file="movieCard.tpl"}            
+                {include file="movieCard.tpl"}    
             </div>
         </div>
     </body>

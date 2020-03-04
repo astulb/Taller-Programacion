@@ -26,8 +26,10 @@ $usuario = $_SESSION["usuarioLogueado"];
 
 # setear variables
 $mySmarty->assign("usuarioLogueado", $usuario);
-#$mySmarty->assign("categorias", getCategorias());
+$mySmarty->assign("generos", getGeneros());
 $mySmarty->assign("categoria", $categoria);
+$mySmarty->assign("err1", $_GET["err"]);
+$mySmarty->assign("err2", $_GET["err"]);
 #$mySmarty->assign("productos", getPeliculasDeCategoria($catId, 1));
 
 # mostrar el template
