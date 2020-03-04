@@ -1,15 +1,15 @@
 <div class="movie">
-    <a class="movie-poster" href="#">
-        <img  src="img/posters/star wars III"/>
+    <a class="movie-poster" href="movie.php?id={$movie.id}">
+        <img  src="img/posters/{$movie.id}"/>
     </a>
     <div class="movie-data">
         <a class="movie-title" href="#">
-            <span class="nombre-producto">Star Wars </span>
+            <span class="nombre-producto">{$movie.titulo}</span>
         </a>
         <div class="extra-data"> 
-            <span class="genre">Si-Fi</span>
-            <span class="year">(1990)</span>
-            <div class="rating">Score: 8/10</div>
+            <span class="genre">{$genre["nombre"]}</span>
+            <span class="year">({$movie.fecha_lanzamiento})</span>
+            <div class="rating">{$movie.puntuacion}</div>
         </div>
     </div>
 </div> 

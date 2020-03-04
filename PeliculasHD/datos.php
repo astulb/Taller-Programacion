@@ -40,6 +40,14 @@ function getCategoria($id) {
     return $cn->siguienteRegistro();
 }
 
+function getGenre($id) {
+    $cn = abrirConexion();
+    $cn->consulta('SELECT id, nombre FROM peliculas WHERE id=:id', array(
+        array("id", $id, 'int')
+    ));
+    return $cn->siguienteRegistro();
+}
+
 function eliminarCategoria($id) {
     $cn = abrirConexion();
     $cn->consulta('DELETE FROM categorias WHERE id=:id', array(
@@ -106,6 +114,25 @@ function cantidadPaginasCategoria($idCategoria, $filtro="") {
     return $paginas;
 }
 
+function amountOfMoviesPerGenre($idGen, $filtro="") {
+    $filtro = '%' . $filtro . '%';
+    $tamano = 6;
+    $cn = abrirConexion();
+    $cn->consulta(
+            'SELECT count(*) as total FROM peliculas '
+            . 'WHERE id_genero = :id AND titulo LIKE :filtro ', array(
+        array("id", $idGen, 'int'),
+        array("filtro", $filtro, 'string')
+    ));
+
+    $fila = $cn->siguienteRegistro();
+    $total = $fila["total"];
+    $paginas = ceil($total / $tamano);
+    if ($paginas == 0) {
+        $paginas = 1;
+    };
+    return $paginas;
+}
 function getProductosDeCategoria($idCategoria, $pagina, $filtro = "") {
     $tamano = 4;
     $offset = ($pagina - 1) * $tamano;
@@ -123,6 +150,35 @@ function getProductosDeCategoria($idCategoria, $pagina, $filtro = "") {
         array("filtro", $filtro, 'string')
     ));
     return $cn->restantesRegistros();
+}
+
+function getMoviesPerGenre($genId, $pagina, $filtro = "") {
+    $tamano = 6;
+    $offset = ($pagina - 1) * $tamano;
+    $filtro = '%' . $filtro . '%';
+    
+    $cn = abrirConexion();
+    $cn->consulta(
+                'SELECT * FROM peliculas '
+            . 'WHERE id_genero = :id AND titulo LIKE :filtro '
+            . 'ORDER BY nombre '
+            . 'LIMIT :offset, :tamano', array(
+        array("id", $genId, 'int'),
+        array("offset", $offset, 'int'),
+        array("tamano", $tamano, 'int'),
+        array("filtro", $filtro, 'string')
+    ));
+    return $cn->restantesRegistros();
+}
+
+function getMovie($id) {
+    $cn = abrirConexion();
+    $cn->consulta(
+            'SELECT * FROM peliculas '
+            . 'WHERE id = :id ', array(
+        array("id", $id, 'int')
+    ));
+    return $cn->siguienteRegistro();
 }
 
 function getProducto($id) {
