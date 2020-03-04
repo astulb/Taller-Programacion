@@ -26,9 +26,9 @@ function abrirConexion() {
     return $cn;
 }
 
-function getCategorias() {
+function getGeneros() {
     $cn = abrirConexion();
-    $cn->consulta('SELECT id, nombre FROM categorias ORDER BY nombre');
+    $cn->consulta('SELECT id, nombre FROM generos ORDER BY nombre');
     return $cn->restantesRegistros();
 }
 
@@ -136,15 +136,85 @@ function getProducto($id) {
     return $cn->siguienteRegistro();
 }
 
-function login($usuario, $password) {
-    if ($usuario == "test" && $password == "test") {
+function registerUser($email, $alias, $password) {
+    $cn = abrirConexion();
+    $cn->consulta('INSERT INTO usuarios(email, alias, password) '
+            . 'VALUES (:email, :alias, :password)', array(
+        array("email", $email, 'string'),
+        array("alias", $alias, 'string'),
+        array("password", $password, 'string'),
+    ));
+}
+
+function login($email, $password) {
+    $password = md5($password);
+    $cn = abrirConexion();
+    $cn->consulta('SELECT * FROM usuarios '
+            . 'WHERE email = :email AND '
+            . 'password = :password', array(
+        array("email", $email, 'string'),
+        array("password", $password, 'string'),
+    ));
+    
+    $usuarioRetornado = $cn->siguienteRegistro();
+    if($usuarioRetornado != null){
         return array(
-            "usuario" => "test",
-            "nombre" => "Usuario de Prueba"
+            "alias" => $usuarioRetornado["alias"],
+            "email" => $usuarioRetornado["email"],
+            "es_administrador" => $usuarioRetornado["es_administrador"]
         );
     }
+    else{
+        return null;
+    }
+}
 
-    return NULL;
+function uploadActors($cast, $id){
+    $cast = explode(";", $cast);
+    $cn = abrirConexion();
+    foreach ($cast as $actor) {
+        $cn->consulta('INSERT INTO elencos(id_pelicula, nombre) '
+                . 'VALUES (:id_pelicula, :nombre)',array(
+                array("id_pelicula", $id, 'int'),
+                array("nombre", $actor, 'string'),
+                ));
+    }
+}
+
+function uploadMovie($title, $director, $cast, $synopsis, $youtube_trailer, $launch_date, $id_genre,
+                $image) {
+    $cn = abrirConexion();
+    $cn->consulta('INSERT INTO peliculas(titulo, id_genero, fecha_lanzamiento, resumen, director, youtube_trailer) '
+            . 'VALUES (:titulo, :id_genero, :fecha_lanzamiento, :resumen, :director, :youtube_trailer)', array(
+        array("titulo", $title, 'string'),
+        array("id_genero", $id_genre, 'int'),
+        array("fecha_lanzamiento", $launch_date, 'string'),
+        array("resumen", $synopsis, 'string'),
+        array("director", $director, 'string'),
+        array("youtube_trailer", $youtube_trailer, 'string'),
+    ));
+
+    $id = $cn->ultimoIdInsert();
+    uploadActors($cast, $id);
+    move_uploaded_file($image, "img/posters/" . $id);
+}
+
+function existsUser($email, $alias){
+    $cn = abrirConexion();
+    $cn->consulta(
+            'SELECT * FROM usuarios '
+            . 'WHERE email = :email OR '
+            . 'alias = :alias;', array(
+        array("email", $email, 'string'),
+        array("alias", $alias, 'string')        
+    ));
+    
+    if($cn->siguienteRegistro() != null){
+        return true;
+    }
+    else{
+        return false;
+    }
 }
 
 function getSmarty() {
@@ -156,9 +226,9 @@ function getSmarty() {
     return $mySmarty;
 }
 
-function hayUsuario() {
+function hayUsuarioAdmin() {
     session_start();
     $usuarioLogueado = $_SESSION["usuarioLogueado"];
-
-    return isset($usuarioLogueado);
+    
+    return isset($usuarioLogueado) && $usuarioLogueado["es_administrador"] == 1;
 }

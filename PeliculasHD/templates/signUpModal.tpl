@@ -8,29 +8,42 @@
         </button>
       </div>
       <div class="modal-body">
-          <form>
+          <form action="doSignUp.php" method="POST">
               <div class="input-group form-group">
                   <div class="input-group-prepend">
                       <span class="input-group-text"><img src="img/icons/person.svg" alt="uIcon"></span>
                   </div>
-                  <input type="text" class="form-control" placeholder="Username">
+                  <input name="alias" type="text" class="form-control" placeholder="Username">
               </div>
               <div class="input-group form-group">
                   <div class="input-group-prepend">
                       <span class="input-group-text"><img src="img/icons/envelope.svg" alt="eIcon"></span>
                   </div>
-                  <input type="text" class="form-control" placeholder="Email">
+                  <input name="email" type="email" class="form-control" placeholder="Email">
               </div>
               <div class="input-group form-group">
                   <div class="input-group-prepend">
                       <span class="input-group-text"><img src="img/icons/shield-lock.svg" alt="pIcon"></span>
                   </div>
-                  <input type="password" class="form-control" placeholder="Password">
+                  <input name="password" type="password" class="form-control" placeholder="Password">
               </div>  
               
               <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                  <button type="button" class="btn btn-primary">Register</button>
+                  <input type="submit" value="Register" class="btn btn-primary"/>
+                  {if (isset($err1) && $err1 == "signUpErrorEmptyFields")}
+                    <script>
+                        $(function() {
+                           alert("Error in registration, there were empty fields. Please try again");
+                        });
+                    </script>
+                  {elseif (isset($err1) && $err1 == "signUpErrorExistentUser")}
+                    <script>
+                        $(function() {
+                           alert("Error in registration, email or alias has already been taken. Please try again");
+                        });
+                    </script>
+                  {/if}
               </div>
           </form>
       </div>

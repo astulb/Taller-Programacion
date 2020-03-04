@@ -8,23 +8,31 @@
         </button>
       </div>
       <div class="modal-body">
-          <form>
+          <form action="doLogin.php" method="POST">
               <div class="input-group form-group">
                   <div class="input-group-prepend">
                       <span class="input-group-text"><img src="img/icons/envelope.svg" alt="asd"></span>
                   </div>
-                  <input type="text" class="form-control" placeholder="Email">
+                  <input name="email" type="email" class="form-control" placeholder="Email">
                   
               </div>
               <div class="input-group form-group">
                   <div class="input-group-prepend">
                       <span class="input-group-text"><img src="img/icons/shield-lock.svg" alt="asd"></span>
                   </div>
-                  <input type="password" class="form-control" placeholder="Password">
+                  <input name="password" type="password" class="form-control" placeholder="Password">
               </div>  
               <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                  <button type="button" class="btn btn-primary">Login</button>
+                  <!--<button class="btn btn-primary" type="submit">Login</button>-->
+                  <input type="submit" class ="btn btn-primary" value="Login"/>
+                  {if (isset($err2) && $err2 == "signInError")}
+                    <script>
+                        $(function() {
+                           alert("Login failed, email or password do not match. Please try again");
+                        });
+                    </script>
+                  {/if}
               </div>
           </form>
       </div>
