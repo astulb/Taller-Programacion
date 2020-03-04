@@ -166,3 +166,81 @@ body{
     font-weight: 600;
 }
 
+#movie-reviews{
+    margin-top: 15px;
+}
+
+.review{
+    margin-bottom: 10px;
+    background:#171717;
+    padding: 20px;
+    color: #ebe6e6;
+}
+
+
+.review p{
+    margin: 0px;
+    margin-top: 5px;
+}
+
+.user{
+    font-weight: bold;
+}
+
+.review-score{
+    text-align: right;
+    display: inline-block;
+    float:right;
+    font-weight: bold;
+}
+
+
+.review-imput{
+    margin: 10px 0px;
+    background:#171717;
+    padding: 20px;
+    color: #ebe6e6;
+}
+
+.unloged{
+    text-align: center;
+    
+}
+.unloged a{
+    color: #ebe6e6;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.unloged a:hover{
+    color:#a4a9ba;
+    text-decoration: none;
+}
+
+.user-review-data{
+    display: inline-block;
+}
+
+.cast-member{
+    margin-bottom: 10px;
+    background:#171717;
+    padding: 10px;
+    color: #ebe6e6;
+}
+
+.director-data{
+    margin-top: 15px;
+}
+.castGroup{
+    margin-top: 15px;
+}
+
+.review-box-title{
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.review-box-text{
+    font-weight: bold;
+    margin-right: 5px;
+}

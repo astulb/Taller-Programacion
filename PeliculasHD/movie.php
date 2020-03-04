@@ -3,7 +3,12 @@
 require_once 'datos.php';
 require_once 'libs/Smarty.class.php';
 
+$mySmarty = getSmarty();
+
 ini_set("display_errors",1);
+
+session_start();
+$usuario = $_SESSION["usuarioLogueado"];
 
 # Cargar datos
 $movieID = 1;
@@ -16,10 +21,10 @@ if (isset($_GET["id"])) {
 //if (isset($movie)) 
 if(true){
     # Crear una instancia de Smarty
-    $mySmarty = getSmarty();
-    
+    #     
     # asignar valores a las variables
     //$mySmarty->assign("movie", $movie);
+    $mySmarty->assign("usuarioLogueado", $usuario);
     
     # mostrar el template
     $mySmarty->display('movie.tpl');
