@@ -1,3 +1,3 @@
 <div class="cast-member">
-    <span class="nombre">El Pedro Salvet</span>
+    <span class="nombre">El Peter Salvet</span>
 </div>

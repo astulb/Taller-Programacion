@@ -1,28 +1,31 @@
-var categoria = 1;
-var pagina = 1;
-var texto = "";
+var genre = 1;
+var pag = 1;
+var texto = "test";
 
 function cargar() {
-
-    texto = $("#texto").val();
-       
+    
+    texto = $("#texto-buscador").val();
+    
     $.ajax({
         url: "movies_paginadas.php",
         data: {
-            genId: categoria,
-            pag: pagina,
+            genId: genre,
+            pag: pag,
             busqueda: texto
         },
         dataType: "html"
     }).done(function (resp) {
-        $("#productos").html(resp);
-
-        $("#anterior").click(function () {
+        alert("error al cargar la pagina ASD");
+        
+        
+        $("#movies").html(resp);
+        
+        $("#previous").click(function () {
             pagina--;
             cargar();
         });
-
-        $("#siguiente").click(function () {
+        
+        $("#next").click(function () {
             pagina++;
             cargar();
         });
@@ -30,20 +33,23 @@ function cargar() {
     }).fail(function () {
         alert("error al cargar la pagina");
     });
+    
 }
 
 $(document).ready(function () {
 
     $(".categoria").click(function () {
+        alert("entro al click de categoria");
         categoria = $(this).attr("catId");
         pagina = 1;
         cargar();
     });
     
     $("#buscar").click(function() {
+        alert("entro al click de buscar");
         pagina=1;
         cargar();
     });
-    
+
     cargar();
 });
