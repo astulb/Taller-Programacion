@@ -16,14 +16,14 @@ if (isset($_GET["id"])) {
     $movieID = $_GET["id"];
 }
 
-//$movie = getMovie($movieId);
+$movie = getMovie($movieID);
 
-//if (isset($movie)) 
-if(true){
+if (isset($movie)) 
+{
     # Crear una instancia de Smarty
     #     
     # asignar valores a las variables
-    //$mySmarty->assign("movie", $movie);
+    $mySmarty->assign("movie", $movie);
     $mySmarty->assign("usuarioLogueado", $usuario);
     
     # mostrar el template

@@ -26,7 +26,7 @@
                 </div>
                 <div class="movie-data">
                     <div class="movie-title">
-                        <span class="nombre-producto">Star Wars </span>
+                        <span class="nombre-producto">{$movie.titulo}</span>
                     </div>
                     
                     <div class="extra-data"> 
@@ -59,10 +59,7 @@
                 <div class="section" id="comments"> 
                     <div class="section-title">Reviews</div>
                     <div id="movie-reviews">
-                        {include file="review.tpl"}
-                        {include file="review.tpl"}
-                           
-                        <!--REVIEW USUARIO LOGEADO-->
+                         <!--REVIEW USUARIO LOGEADO-->
                         {if (isset($usuarioLogueado))}
                             <div class="review-imput">
                                 <form>                              
@@ -89,6 +86,10 @@
                                 <a href="#signInModal" data-toggle="modal" data-target="#signInModal">Login to leave a review</a>
                             </div>  
                         {/if}
+                        {include file="review.tpl"}
+                        {include file="review.tpl"}
+                           
+                       
                     </div>
                 </div>
                 <div class="section" id="creators">
