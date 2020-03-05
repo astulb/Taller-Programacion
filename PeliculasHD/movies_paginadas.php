@@ -30,7 +30,7 @@ if (isset($genre)) {
 $mySmarty->assign("genre", $genre);
 $mySmarty->assign("movies", getMoviesPerGenre($genId, $pag, $_GET['busqueda']));
 $mySmarty->assign("page", $pag);
-$mySmarty->assign("pages", amountOfMoviesPerGenre($genId, $_GET['busqueda']));
+$mySmarty->assign("pages", pagesPerGenre($genId, $_GET['busqueda']));
 
 # mostrar el template
 $mySmarty->display('movies_paginadas.tpl');

@@ -10,27 +10,27 @@ $mySmarty = getSmarty();
 session_start();
 $usuario = $_SESSION["usuarioLogueado"];
 
-//$catId = 1;
-//if (isset($_COOKIE["ultimaCategoria"])) {
-//    $catId = $_COOKIE["ultimaCategoria"];
-//}
-//
-//if (isset($_GET["catId"])) {
-//    $catId = $_GET["catId"];
-//}
-//
-//$categoria = getCategoria($catId);
-//if (isset($categoria)) {
-//    setcookie("ultimaCategoria", $catId, time() + (60 * 60 * 24), "/");
-//}
+$genId = 1;
+if (isset($_COOKIE["ultimoGenero"])) {
+    $genId = $_COOKIE["ultimoGenero"];
+}
+
+if (isset($_GET["genId"])) {
+    $genId = $_GET["genId"];
+}
+
+$genre = getGenre($genId);
+if (isset($genre)) {
+    setcookie("ultimoGenero", $genId, time() + (60 * 60 * 24), "/");
+}
 
 # setear variables
 $mySmarty->assign("usuarioLogueado", $usuario);
 $mySmarty->assign("generos", getGeneros());
-$mySmarty->assign("categoria", $categoria);
+$mySmarty->assign("genre", $genre);
 $mySmarty->assign("err1", $_GET["err"]);
 $mySmarty->assign("err2", $_GET["err"]);
-#$mySmarty->assign("productos", getPeliculasDeCategoria($catId, 1));
+$mySmarty->assign("movies", getMoviesPerGenre($genId, 1));
 
 # mostrar el template
 $mySmarty->display('index.tpl');

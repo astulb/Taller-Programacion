@@ -8,5 +8,5 @@
             Score: 10/10
         </div>
     </div>
-    <p> La pelicula es media pija </p>
+    <p> La pelicula es media mala </p>
 </div>

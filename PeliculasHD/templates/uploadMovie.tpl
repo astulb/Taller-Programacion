@@ -70,39 +70,3 @@
     </body>
 </html>
 
-{* <div class="main-upload-content">
-             <form method="POST" action="doGuardarProducto.php"
-              enctype="multipart/form-data">
-            <label>Title</label>
-            <input type="text" name="titulo" />
-            <br>
-            <label>Synopsis</label>
-            <input type="text" name="resumen" />
-            <br>
-            <label class="">Trailer (Youtube link)</label>
-            <input type="text" name="youtube_trailer" />
-            <br>
-            <label>Director</label>
-            <input type="text" name="director" />
-            <br>
-            <label>Launch date</label>
-            <input type="text" name="fecha_lanzamiento" placeholder="Año-Mes-Dia; ej: 2019-10-23" />
-            <br>
-            <label>Genre</label>
-            <select name="id_genero">
-                {foreach from=$generos item=gen}
-                    <option value="{$gen.id}">{$gen.nombre}</option>
-                {/foreach}
-            </select>
-            <br>
-            {if (isset($err))}
-                <label>{$err}</label>
-            {/if}
-            <br>
-            <label>Poster</label>
-            <input type="file" accept=".jpg,.png" name="imagen" />
-            <br>
-            <br>
-            <input type="submit" value="Guardar" />
-        </form>
-        </div>*}
