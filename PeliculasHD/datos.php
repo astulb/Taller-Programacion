@@ -28,7 +28,7 @@ function abrirConexion() {
 
 function getGeneros() {
     $cn = abrirConexion();
-    $cn->consulta('SELECT id, nombre FROM generos ORDER BY nombre');
+    $cn->consulta('SELECT id, nombre FROM generos ORDER BY id');
     return $cn->restantesRegistros();
 }
 
@@ -135,7 +135,7 @@ function getMoviesPerGenre($genId, $pagina, $filtro = "") {
     $cn->consulta(
                 'SELECT * FROM peliculas '
             . 'WHERE id_genero = :id AND titulo LIKE :filtro '
-            . 'ORDER BY titulo '
+            . 'ORDER BY fecha_lanzamiento DESC '
             . 'LIMIT :offset, :tamano', array(
         array("id", $genId, 'int'),
         array("offset", $offset, 'int'),

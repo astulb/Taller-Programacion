@@ -10,14 +10,13 @@
     
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <form class="form-inline my-2 my-lg-0 mr-auto ml-auto">
-            <select class="form-control" id="categorySelect">
-                <option>All Categories</option>
-                {foreach from=$generos item=gen}
-                    <option>{$gen.nombre}</option>
+            <select class="form-control" id="genre-select">
+                {foreach from=$generos item=gen name=genForEach}
+                    <option value="{$smarty.foreach.genForEach.iteration}">{$gen.nombre}</option>
                 {/foreach}
             </select> 
             <input class="form-control mr-sm-2" id="texto-buscador" type="text" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-primary my-2 my-sm-0" id="searchButton" type="submit">Search</button>
+            <input class="btn btn-outline-primary my-2 my-sm-0" id="searchButton" type="button" value="Search">
         </form>
         
         <ul class="navbar-nav "> 

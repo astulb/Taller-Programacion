@@ -5,6 +5,7 @@ var texto = "test";
 function cargar() {
     
     texto = $("#texto-buscador").val();
+    genre = $("#genre-select").val();
     
     $.ajax({
         url: "movies_paginadas.php",
@@ -15,10 +16,8 @@ function cargar() {
         },
         dataType: "html"
     }).done(function (resp) {
-        alert("error al cargar la pagina ASD");
         
-        
-        $("#movies").html(resp);
+        $("#main-content").html(resp);
         
         $("#previous").click(function () {
             pagina--;
@@ -45,9 +44,8 @@ $(document).ready(function () {
         cargar();
     });
     
-    $("#buscar").click(function() {
-        alert("entro al click de buscar");
-        pagina=1;
+    $("#searchButton").click(function() {
+        pag=1;
         cargar();
     });
 
