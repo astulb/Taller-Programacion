@@ -25,10 +25,13 @@ if (isset($movie))
     #     
     # asignar valores a las variables
     $mySmarty->assign("cast", getCast($movieID));
-    $mySmarty->assign("reviews", getReviews($movieID));
+    $mySmarty->assign("reviews", getApprovedReviews($movieID));
     $mySmarty->assign("movie", $movie);
     $mySmarty->assign("usuarioLogueado", $usuario);
     $mySmarty->assign("generos", getGeneros());
+    $mySmarty->assign("err", $_GET["err"]);
+    $mySmarty->assign("msg", $_GET["msg"]);
+
     
     # mostrar el template
     $mySmarty->display('movie.tpl');

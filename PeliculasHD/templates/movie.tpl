@@ -63,22 +63,35 @@
                          <!--REVIEW USUARIO LOGEADO-->
                         {if (isset($usuarioLogueado))}
                             <div class="review-imput">
-                                <form>                              
+                                <form action="doInsertReview.php?id={$movie.id}" method="POST" enctype="multipart/form-data">                              
                                     <div class="form-group">
                                         <span class="review-box-title">Leave a review!</span>
-                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Write your comment here…"></textarea>
+                                        <textarea type="text" class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Write your review here…" name="mensaje"></textarea>
                                     </div>
                                     <div class="form-inline">
                                         <div class="form-group">
                                             <span class="review-box-text">Score: </span>
-                                            <select class="form-control" id="exampleFormControlSelect1">
+                                            <select class="form-control" id="exampleFormControlSelect1" name="puntuacion">
                                                 {for $score=1 to 10}
                                                     <option>{$score}</option>
                                                 {/for}
                                             </select>
                                         </div>
-                                        <button type="submit" class="btn btn-primary ml-auto">Submit</button>
+                                            <input type="submit" class="btn btn-primary ml-auto" value="Submit">
                                     </div>
+                                        {if (isset($err))}
+                                            <script>
+                                                $(function() {
+                                                   alert("You already reviewed this movie");
+                                                });
+                                            </script>
+                                        {elseif (isset($msg))}
+                                            <script>
+                                                $(function() {
+                                                   alert("Review has been submitted for approval");
+                                                });
+                                            </script>   
+                                        {/if}
                                 </form>
                             </div>
                         <!--REVIEW USUARIO LOGEADO-->

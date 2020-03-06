@@ -195,6 +195,7 @@ function login($email, $password) {
     $usuarioRetornado = $cn->siguienteRegistro();
     if($usuarioRetornado != null){
         return array(
+            "id" => $usuarioRetornado["id"],
             "alias" => $usuarioRetornado["alias"],
             "email" => $usuarioRetornado["email"],
             "es_administrador" => $usuarioRetornado["es_administrador"]
@@ -263,10 +264,39 @@ function getCast($movieId){
     return $cn->restantesRegistros();
 }
 
-function getReviews($movieId){
+function insertReview($mensaje, $puntuacion, $usuarioId, $movieID, $estado){
+    $cn = abrirConexion();
+    $cn->consulta('SELECT * FROM comentarios WHERE id_usuario = :id_usuario AND id_pelicula = :id_pelicula', array(
+                array("id_pelicula", $movieID, 'int'),
+                array("id_usuario", $usuarioId, 'int'),
+    ));
+    if($cn->siguienteRegistro() == null){
+        $cn->consulta('INSERT INTO comentarios(id_pelicula, mensaje, puntuacion, id_usuario, estado) '
+            . 'VALUES (:id_pelicula, :mensaje, :puntuacion, :id_usuario, :estado)', array(
+        array("id_pelicula", $movieID, 'int'),
+        array("mensaje", $mensaje, 'string'),
+        array("puntuacion", $puntuacion, 'int'),
+        array("id_usuario", $usuarioId, 'int'),
+        array("estado", $estado, 'string'),
+    ));
+        return true;
+    }
+    return false;
+}
+
+function getPendingReviews(){
     $cn = abrirConexion();
     $cn->consulta(
-            'SELECT comentarios.mensaje, comentarios.puntuacion, comentarios.estado, usuarios.alias '
+            'SELECT comentarios.mensaje, comentarios.puntuacion, usuarios.alias '
+            . 'FROM comentarios JOIN usuarios ON id_usuario = usuarios.id '
+            . 'WHERE comentarios.estado = "PENDIENTE" ');
+    return $cn->restantesRegistros();
+}
+
+function getApprovedReviews($movieId){
+    $cn = abrirConexion();
+    $cn->consulta(
+            'SELECT comentarios.id, comentarios.mensaje, comentarios.puntuacion, comentarios.estado, usuarios.alias '
             . 'FROM comentarios JOIN usuarios ON id_usuario = usuarios.id '
             . 'WHERE id_pelicula = :id AND estado = "APROBADO" ', array(
         array("id", $movieId, 'int')
@@ -281,6 +311,13 @@ function getSmarty() {
     $mySmarty->config_dir = 'config';
     $mySmarty->cache_dir = 'cache';
     return $mySmarty;
+}
+
+function hayUsuario() {
+    session_start();
+    $usuarioLogueado = $_SESSION["usuarioLogueado"];
+    
+    return isset($usuarioLogueado);
 }
 
 function hayUsuarioAdmin() {

@@ -19,7 +19,6 @@
             <input class="form-control mr-sm-2" id="texto-buscador" type="text" placeholder="Search" aria-label="Search">
             <input class="btn btn-outline-primary my-2 my-sm-0" id="searchButton" type="button" value="Search">
         </form>
-        
         <ul class="navbar-nav "> 
             <!--NOMBRE USUARIO-->
             {if (isset($usuarioLogueado))}
