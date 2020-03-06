@@ -9,10 +9,10 @@ $mySmarty = getSmarty();
 session_start();
 $usuario = $_SESSION["usuarioLogueado"];
 
-# setear variables
 
 # mostrar el template
 if(hayUsuarioAdmin()){
+  $mySmarty->assign("usuarioLogueado", $usuario);
   $mySmarty->assign("reviews", getPendingReviews());
 
   $mySmarty->display('manage_reviews.tpl');  

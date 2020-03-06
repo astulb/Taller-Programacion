@@ -284,15 +284,6 @@ function insertReview($mensaje, $puntuacion, $usuarioId, $movieID, $estado){
     return false;
 }
 
-function getPendingReviews(){
-    $cn = abrirConexion();
-    $cn->consulta(
-            'SELECT comentarios.mensaje, comentarios.puntuacion, usuarios.alias '
-            . 'FROM comentarios JOIN usuarios ON id_usuario = usuarios.id '
-            . 'WHERE comentarios.estado = "PENDIENTE" ');
-    return $cn->restantesRegistros();
-}
-
 function getApprovedReviews($movieId){
     $cn = abrirConexion();
     $cn->consulta(
@@ -307,7 +298,7 @@ function getApprovedReviews($movieId){
 function getPendingReviews(){
     $cn = abrirConexion();
     $cn->consulta(
-            'SELECT comentarios.id, comentarios.mensaje, comentarios.puntuacion, usuarios.alias '
+            'SELECT comentarios.id, comentarios.mensaje, comentarios.puntuacion, usuarios.alias, comentarios.id_pelicula '
             . 'FROM comentarios JOIN usuarios ON id_usuario = usuarios.id '
             . 'WHERE comentarios.estado = "PENDIENTE" ');
     return $cn->restantesRegistros();

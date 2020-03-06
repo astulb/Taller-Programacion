@@ -15,7 +15,7 @@ body{
 #background-image {
     -moz-background-size: cover;
     -webkit-background-size: cover;
-    top: 0px;
+    top: 57px;
     position: absolute;
     left: 0;
     right: 0;
@@ -39,7 +39,7 @@ body{
 
 
 #background-overlay {
-    top: 0px;
+    top: 57px;
     height: 748px;
     position: absolute;
     left: 0;

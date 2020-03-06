@@ -10,7 +10,7 @@
         
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         {if $locationValid}
-            <form class="form-inline my-2 my-lg-0 mr-auto ml-auto">
+            <form class="form-inline my-2 my-lg-0 ml-auto">
                 <select class="form-control" id="genre-select">
                     <option value="0">All Genres</option>
                     {foreach from=$generos item=gen name=genForEach}
@@ -22,7 +22,7 @@
             </form>
         {/if}        
             
-        <ul class="navbar-nav "> 
+        <ul class="navbar-nav ml-auto "> 
             <!--NOMBRE USUARIO-->
             {if (isset($usuarioLogueado))}
                 <li class="nav-item">
@@ -36,7 +36,7 @@
                             Manage
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">Manage Comments</a>
+                            <a class="dropdown-item" href="manage_reviews.php">Manage Comments</a>
                             <a class="dropdown-item" href="uploadMovie.php">Add Movie</a>
                         </div>
                     </li>

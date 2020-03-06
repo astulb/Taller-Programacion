@@ -15,6 +15,7 @@
             
     </head>
     <body>
+        {include file="navbar.tpl"}
         <div id="background-image" ><img src="img/backgroundImg.jpg"></div>    
         <div id="background-overlay"></div>
         
