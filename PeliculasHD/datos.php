@@ -99,12 +99,21 @@ function pagesPerGenre($idGen, $filtro="") {
     $filtro = '%' . $filtro . '%';
     $tamano = 6;
     $cn = abrirConexion();
-    $cn->consulta(
+    if($idGen == 0){
+         $cn->consulta(
+            'SELECT count(*) as total FROM peliculas '
+            . 'WHERE titulo LIKE :filtro ', array(
+        array("filtro", $filtro, 'string')
+    ));
+    }else{
+         $cn->consulta(
             'SELECT count(*) as total FROM peliculas '
             . 'WHERE id_genero = :id AND titulo LIKE :filtro ', array(
         array("id", $idGen, 'int'),
         array("filtro", $filtro, 'string')
     ));
+    }
+   
 
     $fila = $cn->siguienteRegistro();
     $total = $fila["total"];

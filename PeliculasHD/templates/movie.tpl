@@ -41,20 +41,22 @@
                         </p>                
                     </div>
                 </div>
-                <div class="section" id="trailer">
-                    <div class="section-title">Trailer</div>
-                    <div>
-                        <iframe width="560" height="315" 
-                                src="{$movie.youtube_trailer}" 
-                                frameborder="0" 
-                                allow="accelerometer; 
-                                encrypted-media; 
-                                gyroscope; 
-                                picture-in-picture" 
-                                allowfullscreen>                                   
-                        </iframe>
+                {if {$movie.youtube_trailer} }
+                    <div class="section" id="trailer">
+                        <div class="section-title">Trailer</div>
+                        <div>
+                            <iframe width="560" height="315" 
+                                    src="{$movie.youtube_trailer}" 
+                                    frameborder="0" 
+                                    allow="accelerometer; 
+                                    encrypted-media; 
+                                    gyroscope; 
+                                    picture-in-picture" 
+                                    allowfullscreen>                                   
+                            </iframe>
+                        </div>
                     </div>
-                </div>
+               {/if}
                 <div class="section" id="comments"> 
                     <div class="section-title">Reviews</div>
                     <div id="movie-reviews">
