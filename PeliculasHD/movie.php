@@ -19,12 +19,13 @@ if (isset($_GET["id"])) {
 $movie = getMovie($movieID);
 
 
-
 if (isset($movie)) 
 {
     # Crear una instancia de Smarty
     #     
     # asignar valores a las variables
+    $mySmarty->assign("cast", getCast($movieID));
+    $mySmarty->assign("reviews", getReviews($movieID));
     $mySmarty->assign("movie", $movie);
     $mySmarty->assign("usuarioLogueado", $usuario);
     $mySmarty->assign("generos", getGeneros());

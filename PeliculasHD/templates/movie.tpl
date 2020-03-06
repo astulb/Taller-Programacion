@@ -85,9 +85,9 @@
                                 <a href="#signInModal" data-toggle="modal" data-target="#signInModal">Login to leave a review</a>
                             </div>  
                         {/if}
-                        {include file="review.tpl"}
-                        {include file="review.tpl"}
-                           
+                        {foreach from=$reviews item=rev}
+                            {include file="review.tpl" review=$rev}          
+                        {/foreach}
                        
                     </div>
                 </div>
@@ -99,10 +99,11 @@
                         </div>
                     </div>
                     <div id="cast">
-                        <div class="section-title">Cast</div>
+                        <div class="section-title">Cast</div>   
                         <div class="castGroup">
-                            {include file="castMember.tpl"}
-                            {include file="castMember.tpl"}
+                            {foreach from=$cast item=c}
+                                {include file="castMember.tpl" nombre={$c.nombre}}
+                            {/foreach}
                         </div>
                     </div>
                 </div>

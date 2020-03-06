@@ -244,6 +244,27 @@ function existsUser($email, $alias){
     }
 }
 
+function getCast($movieId){
+    $cn = abrirConexion();
+    $cn->consulta(
+            'SELECT * FROM elencos '
+            . 'WHERE id_pelicula = :id ', array(
+        array("id", $movieId, 'int')
+    ));
+    return $cn->restantesRegistros();
+}
+
+function getReviews($movieId){
+    $cn = abrirConexion();
+    $cn->consulta(
+            'SELECT comentarios.mensaje, comentarios.puntuacion, comentarios.estado, usuarios.alias '
+            . 'FROM comentarios JOIN usuarios ON id_usuario = usuarios.id '
+            . 'WHERE id_pelicula = :id AND estado = "APROBADO" ', array(
+        array("id", $movieId, 'int')
+    ));
+    return $cn->restantesRegistros();
+}
+
 function getSmarty() {
     $mySmarty = new Smarty();
     $mySmarty->template_dir = 'templates';
