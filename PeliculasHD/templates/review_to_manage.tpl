@@ -8,4 +8,8 @@
         </div>
     </div>
     <p>{$review.mensaje}</p>
+    <div class="review-options">
+        <button class="btn btn-primary ml-auto">Accept</button>
+        <button class="btn btn-secondary ml-auto">Deny</button>
+    </div>
 </div>

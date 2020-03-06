@@ -274,6 +274,15 @@ function getReviews($movieId){
     return $cn->restantesRegistros();
 }
 
+function getPendingReviews(){
+    $cn = abrirConexion();
+    $cn->consulta(
+            'SELECT comentarios.id, comentarios.mensaje, comentarios.puntuacion, usuarios.alias '
+            . 'FROM comentarios JOIN usuarios ON id_usuario = usuarios.id '
+            . 'WHERE comentarios.estado = "PENDIENTE" ');
+    return $cn->restantesRegistros();
+}
+
 function getSmarty() {
     $mySmarty = new Smarty();
     $mySmarty->template_dir = 'templates';

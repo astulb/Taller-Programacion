@@ -3,23 +3,25 @@
         <img src="img/Logo.png" width="30" height="30" class="d-inline-block align-top" alt="">
         PelisHD
     </a>
-                
+        
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <form class="form-inline my-2 my-lg-0 mr-auto ml-auto">
-            <select class="form-control" id="genre-select">
-                <option value="0">All Genres</option>
-                {foreach from=$generos item=gen name=genForEach}
-                    <option value="{$smarty.foreach.genForEach.iteration}">{$gen.nombre}</option>
-                {/foreach}
-            </select> 
-            <input class="form-control mr-sm-2" id="texto-buscador" type="text" placeholder="Search" aria-label="Search">
-            <input class="btn btn-outline-primary my-2 my-sm-0" id="searchButton" type="button" value="Search">
-        </form>
         
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        {if $locationValid}
+            <form class="form-inline my-2 my-lg-0 mr-auto ml-auto">
+                <select class="form-control" id="genre-select">
+                    <option value="0">All Genres</option>
+                    {foreach from=$generos item=gen name=genForEach}
+                        <option value="{$smarty.foreach.genForEach.iteration}">{$gen.nombre}</option>
+                    {/foreach}
+                </select> 
+                <input class="form-control mr-sm-2" id="texto-buscador" type="text" placeholder="Search" aria-label="Search">
+                <input class="btn btn-outline-primary my-2 my-sm-0" id="searchButton" type="button" value="Search">
+            </form>
+        {/if}        
+            
         <ul class="navbar-nav "> 
             <!--NOMBRE USUARIO-->
             {if (isset($usuarioLogueado))}
