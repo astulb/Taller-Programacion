@@ -36,13 +36,6 @@ function cargar() {
 }
 
 $(document).ready(function () {
-
-    $(".categoria").click(function () {
-        alert("entro al click de categoria");
-        categoria = $(this).attr("catId");
-        pagina = 1;
-        cargar();
-    });
     
     $("#searchButton").click(function() {
         pag=1;

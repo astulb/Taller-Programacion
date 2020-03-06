@@ -27,6 +27,8 @@ if (isset($_GET["genId"])) {
 # setear variables
 $mySmarty->assign("indexLocation", $_GET["err"]);
 $mySmarty->assign("usuarioLogueado", $usuario);
+$mySmarty->assign("locationValid", $usuario);
+
 $mySmarty->assign("generos", getGeneros());
 $mySmarty->assign("err1", $_GET["err"]);
 $mySmarty->assign("err2", $_GET["err"]);
