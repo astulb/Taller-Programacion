@@ -5,7 +5,6 @@ require_once 'libs/Smarty.class.php';
 
 $mySmarty = getSmarty();
 
-ini_set("display_errors",1);
 
 session_start();
 $usuario = $_SESSION["usuarioLogueado"];
@@ -16,7 +15,10 @@ if (isset($_GET["id"])) {
     $movieID = $_GET["id"];
 }
 
+
 $movie = getMovie($movieID);
+
+
 
 if (isset($movie)) 
 {
@@ -25,6 +27,7 @@ if (isset($movie))
     # asignar valores a las variables
     $mySmarty->assign("movie", $movie);
     $mySmarty->assign("usuarioLogueado", $usuario);
+    $mySmarty->assign("generos", getGeneros());
     
     # mostrar el template
     $mySmarty->display('movie.tpl');

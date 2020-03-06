@@ -10,7 +10,7 @@ $mySmarty = getSmarty();
 session_start();
 $usuario = $_SESSION["usuarioLogueado"];
 
-$genId = 1;
+$genId = 0;
 if (isset($_COOKIE["ultimoGenero"])) {
     $genId = $_COOKIE["ultimoGenero"];
 }
@@ -19,15 +19,14 @@ if (isset($_GET["genId"])) {
     $genId = $_GET["genId"];
 }
 
-$genre = getGenre($genId);
-if (isset($genre)) {
-    setcookie("ultimoGenero", $genId, time() + (60 * 60 * 24), "/");
-}
+//$genre = getGenre($genId);
+//if (isset($genre)) {
+//     setcookie("ultimoGenero", $genId, time() + (60 * 60 * 24), "/");
+//}
 
 # setear variables
 $mySmarty->assign("usuarioLogueado", $usuario);
 $mySmarty->assign("generos", getGeneros());
-$mySmarty->assign("genre", $genre);
 $mySmarty->assign("err1", $_GET["err"]);
 $mySmarty->assign("err2", $_GET["err"]);
 $mySmarty->assign("movies", getMoviesPerGenre($genId, 1));

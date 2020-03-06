@@ -11,6 +11,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <form class="form-inline my-2 my-lg-0 mr-auto ml-auto">
             <select class="form-control" id="genre-select">
+                <option value="0">All Genres</option>
                 {foreach from=$generos item=gen name=genForEach}
                     <option value="{$smarty.foreach.genForEach.iteration}">{$gen.nombre}</option>
                 {/foreach}

@@ -3,23 +3,6 @@
 require_once 'libs/Smarty.class.php';
 require_once 'class.Conexion.BD.php';
 
-/*
- * Todas las funciones en este archivo devuelven datos.
- * Por ahora son datos "harcoded", pero en el futuro las vamos 
- * a cambiar para que hagan consultas a la base de datos. 
- *  */
-
-/*
-  function getConexion() {
-  $usuario = "root";
-  $clave = "root";
-
-  $cn = new PDO(
-  'mysql:host=localhost;dbname=sitio_ventas', $usuario, $clave);
-  return $cn;
-  }
- */
-
 function abrirConexion() {
     $cn = new ConexionBD("mysql", "localhost", "guia_cine", "root", "root");
     $cn->conectar();
@@ -33,11 +16,17 @@ function getGeneros() {
 }
 
 function getGenre($id) {
-    $cn = abrirConexion();
-    $cn->consulta('SELECT id, nombre FROM generos WHERE id=:id', array(
+    if($id == 0){
+        return array("id" => 0,"nombre" => "All Genres");
+         
+    }
+    else{
+        $cn = abrirConexion();
+        $cn->consulta('SELECT id, nombre FROM generos WHERE id=:id', array(
         array("id", $id, 'int')
     ));
-    return $cn->siguienteRegistro();
+    return $cn->siguienteRegistro();   
+    }
 }
 
 function eliminarCategoria($id) {
@@ -132,8 +121,23 @@ function getMoviesPerGenre($genId, $pagina, $filtro = "") {
     $filtro = '%' . $filtro . '%';
     
     $cn = abrirConexion();
-    $cn->consulta(
-                'SELECT * FROM peliculas '
+    if($genId == 0){
+            $cn->consulta(
+        'SELECT peliculas.id, peliculas.titulo, peliculas.fecha_lanzamiento, peliculas.director, peliculas.puntuacion, '
+            . 'peliculas.youtube_trailer, peliculas.resumen, generos.nombre ' 
+            . 'FROM peliculas RIGHT JOIN generos ON id_genero = generos.id '
+            . 'WHERE titulo LIKE :filtro '
+            . 'ORDER BY fecha_lanzamiento DESC '
+            . 'LIMIT :offset, :tamano', array(
+        array("offset", $offset, 'int'),
+        array("tamano", $tamano, 'int'),
+        array("filtro", $filtro, 'string')
+    ));
+    } else {
+            $cn->consulta(
+                'SELECT peliculas.id, peliculas.titulo, peliculas.fecha_lanzamiento, peliculas.director, peliculas.puntuacion, '
+            . 'peliculas.youtube_trailer, peliculas.resumen, generos.nombre ' 
+            . 'FROM peliculas RIGHT JOIN generos ON id_genero = generos.id '
             . 'WHERE id_genero = :id AND titulo LIKE :filtro '
             . 'ORDER BY fecha_lanzamiento DESC '
             . 'LIMIT :offset, :tamano', array(
@@ -142,14 +146,18 @@ function getMoviesPerGenre($genId, $pagina, $filtro = "") {
         array("tamano", $tamano, 'int'),
         array("filtro", $filtro, 'string')
     ));
+    }
+
     return $cn->restantesRegistros();
 }
 
 function getMovie($id) {
     $cn = abrirConexion();
     $cn->consulta(
-            'SELECT * FROM peliculas '
-            . 'WHERE id = :id ', array(
+            'SELECT peliculas.id, peliculas.titulo, peliculas.fecha_lanzamiento, peliculas.director, peliculas.puntuacion,'
+            . ' peliculas.youtube_trailer, peliculas.resumen, generos.nombre '
+            . 'FROM peliculas JOIN generos ON id_genero = generos.id '
+            . 'WHERE peliculas.id = :id ', array(
         array("id", $id, 'int')
     ));
     return $cn->siguienteRegistro();

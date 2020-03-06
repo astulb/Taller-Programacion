@@ -21,13 +21,13 @@ if (isset($_GET["pag"])) {
     $pag = $_GET["pag"];
 }
 
-$genre = getGenre($genId);
-if (isset($genre)) {
-    setcookie("ultimoGenero", $genId, time() + (60 * 60 * 24), "/");
-}
+//$genre = getGenre($genId);
+////if (isset($genre)) {
+////    setcookie("ultimoGenero", $genId, time() + (60 * 60 * 24), "/");
+////}
 
 # setear variables
-$mySmarty->assign("genre", $genre);
+//$mySmarty->assign("genre", $genre);
 $mySmarty->assign("movies", getMoviesPerGenre($genId, $pag, $_GET['busqueda']));
 $mySmarty->assign("page", $pag);
 $mySmarty->assign("pages", pagesPerGenre($genId, $_GET['busqueda']));

@@ -7,7 +7,7 @@
             <span class="nombre-producto">{$movie.titulo}</span>
         </a>
         <div class="extra-data"> 
-            <span class="genre">{$genre["nombre"]}</span>
+            <span class="genre">{$movie.nombre}</span>
             <span class="year">({$movie.fecha_lanzamiento})</span>
             <div class="rating">{$movie.puntuacion}</div>
         </div>
