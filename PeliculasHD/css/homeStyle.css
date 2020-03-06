@@ -103,7 +103,7 @@ body{
     object-fit: fill;   
 
     width:100%;
-    height:450px;
+    height:100%;
 }
 
 .movie-poster img:hover{
@@ -116,8 +116,6 @@ body{
     -moz-border-radius: 4px;
     object-fit: fill;   
 
-    width:100%;
-    height:450px;
 }
 
 
@@ -162,4 +160,18 @@ body{
 
 #paginacion button{
     width: 90px;
+}
+
+div.stretchy-wrapper {
+	width: 100%;
+	padding-bottom: 150%; /* 2:3 */
+	position: relative;
+}
+
+div.stretchy-wrapper > div {
+	position: absolute;
+	top: 0; bottom: 0; left: 0; right: 0;
+	color: white;
+	font-size: 24px;
+	text-align: center;
 }

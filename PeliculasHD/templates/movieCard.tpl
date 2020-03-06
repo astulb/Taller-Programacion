@@ -1,7 +1,11 @@
 <div class="movie">
-    <a class="movie-poster" href="movie.php?id={$movie.id}">
-        <img  src="img/posters/{$movie.id}"/>
-    </a>
+    <div class="stretchy-wrapper">
+        <div>
+            <a class="movie-poster" href="movie.php?id={$movie.id}">
+                <img  src="img/posters/{$movie.id}"/>
+            </a>
+        </div>
+    </div>
     <div class="movie-data">
         <a class="movie-title" href="movie.php?id={$movie.id}">
             <span class="nombre-producto">{$movie.titulo}</span>
