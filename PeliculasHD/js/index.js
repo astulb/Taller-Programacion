@@ -20,12 +20,12 @@ function cargar() {
         $("#main-content").html(resp);
         
         $("#previous").click(function () {
-            pagina--;
+            pag--;
             cargar();
         });
         
         $("#next").click(function () {
-            pagina++;
+            pag++;
             cargar();
         });
 

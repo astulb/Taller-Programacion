@@ -7,11 +7,7 @@ require_once 'datos.php';
 $mySmarty = getSmarty();
 
 
-$genId = 1;
-if (isset($_COOKIE["ultimoGenero"])) {
-    $genId = $_COOKIE["ultimoGenero"];
-}
-
+$genId = 0;
 if (isset($_GET["genId"])) {
     $genId = $_GET["genId"];
 }
@@ -20,11 +16,6 @@ $pag = 1;
 if (isset($_GET["pag"])) {
     $pag = $_GET["pag"];
 }
-
-//$genre = getGenre($genId);
-////if (isset($genre)) {
-////    setcookie("ultimoGenero", $genId, time() + (60 * 60 * 24), "/");
-////}
 
 # setear variables
 //$mySmarty->assign("genre", $genre);
