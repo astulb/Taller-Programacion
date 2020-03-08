@@ -4,7 +4,7 @@
             <span class="user">{$review.alias}</span>
         </div>
         <div class="review-score">
-            Score: {$review.puntuacion}/10
+            Score: {$review.puntuacion}/5
         </div>
     </div>
     <p>{$review.mensaje}</p>
