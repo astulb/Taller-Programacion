@@ -43,6 +43,12 @@
                            alert("Error in registration, email or alias has already been taken. Please try again");
                         });
                     </script>
+                   {elseif (isset($err1) && $err1 == "signUpErrorPasswordLength")}
+                    <script>
+                        $(function() {
+                           alert("Error in registration, password must contain at least 6 characters. Please try again");
+                        });
+                    </script>
                   {/if}
               </div>
           </form>

@@ -32,7 +32,7 @@
                         
                     <div class="extra-data"> 
                         <div class="genre">{$movie.nombre} ({$movie.fecha_lanzamiento})</div>
-                        <div class="rating">Score: {$movie.puntuacion}/10</div>
+                        <div class="rating">Score: {$movie.puntuacion}/5</div>
                     </div>
                     
                     <div class="synopsis">
@@ -73,7 +73,7 @@
                                         <div class="form-group">
                                             <span class="review-box-text">Score: </span>
                                             <select class="form-control" id="exampleFormControlSelect1" name="puntuacion">
-                                                {for $score=1 to 10}
+                                                {for $score=1 to 5}
                                                     <option>{$score}</option>
                                                 {/for}
                                             </select>

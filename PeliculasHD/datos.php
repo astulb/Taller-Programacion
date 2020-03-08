@@ -28,72 +28,72 @@ function getGenre($id) {
     return $cn->siguienteRegistro();   
     }
 }
-
-function eliminarCategoria($id) {
-    $cn = abrirConexion();
-    $cn->consulta('DELETE FROM categorias WHERE id=:id', array(
-        array("id", $id, 'int')
-    ));
-}
-
-function existeCategoria($nombre) {
-    $cn = abrirConexion();
-    $cn->consulta('SELECT id, nombre FROM categorias WHERE nombre=:nombre', array(
-        array("nombre", $nombre, 'string')
-    ));
-    return $cn->cantidadRegistros() > 0;
-}
-
-function guardarCategoria($categoria) {
-    $cn = abrirConexion();
-    if ($categoria["id"] > 0) {
-        $cn->consulta('UPDATE categorias SET nombre = :nombre '
-                . 'WHERE id = :id', array(
-            array("nombre", $categoria["nombre"], 'string'),
-            array("id", $categoria["id"], 'int')
-        ));
-    } else {
-        $cn->consulta('INSERT INTO categorias(nombre) VALUES (:nombre)', array(
-            array("nombre", $categoria["nombre"], 'string')
-        ));
-    }
-}
-
-function guardarProducto($nombre, $descripcion, $precio, $categoria, $imagen) {
-    $cn = abrirConexion();
-    $cn->consulta('INSERT INTO productos(nombre, descripcion, precio, categoria_id) '
-            . 'VALUES (:nombre, :descripcion, :precio, :categoria)', array(
-        array("nombre", $nombre, 'string'),
-        array("descripcion", $descripcion, 'string'),
-        array("precio", $precio, 'int'),
-        array("categoria", $categoria, 'int')
-    ));
-
-    $id = $cn->ultimoIdInsert();
-    if (is_uploaded_file($imagen)) {
-        move_uploaded_file($imagen, "img_productos/" . $id);
-    }
-}
-
-function cantidadPaginasCategoria($idCategoria, $filtro="") {
-    $filtro = '%' . $filtro . '%';
-    $tamano = 4;
-    $cn = abrirConexion();
-    $cn->consulta(
-            'SELECT count(*) as total FROM productos '
-            . 'WHERE categoria_id = :id AND nombre LIKE :filtro ', array(
-        array("id", $idCategoria, 'int'),
-        array("filtro", $filtro, 'string')
-    ));
-
-    $fila = $cn->siguienteRegistro();
-    $total = $fila["total"];
-    $paginas = ceil($total / $tamano);
-    if ($paginas == 0) {
-        $paginas = 1;
-    };
-    return $paginas;
-}
+//
+//function eliminarCategoria($id) {
+//    $cn = abrirConexion();
+//    $cn->consulta('DELETE FROM categorias WHERE id=:id', array(
+//        array("id", $id, 'int')
+//    ));
+//}
+//
+//function existeCategoria($nombre) {
+//    $cn = abrirConexion();
+//    $cn->consulta('SELECT id, nombre FROM categorias WHERE nombre=:nombre', array(
+//        array("nombre", $nombre, 'string')
+//    ));
+//    return $cn->cantidadRegistros() > 0;
+//}
+//
+//function guardarCategoria($categoria) {
+//    $cn = abrirConexion();
+//    if ($categoria["id"] > 0) {
+//        $cn->consulta('UPDATE categorias SET nombre = :nombre '
+//                . 'WHERE id = :id', array(
+//            array("nombre", $categoria["nombre"], 'string'),
+//            array("id", $categoria["id"], 'int')
+//        ));
+//    } else {
+//        $cn->consulta('INSERT INTO categorias(nombre) VALUES (:nombre)', array(
+//            array("nombre", $categoria["nombre"], 'string')
+//        ));
+//    }
+//}
+//
+//function guardarProducto($nombre, $descripcion, $precio, $categoria, $imagen) {
+//    $cn = abrirConexion();
+//    $cn->consulta('INSERT INTO productos(nombre, descripcion, precio, categoria_id) '
+//            . 'VALUES (:nombre, :descripcion, :precio, :categoria)', array(
+//        array("nombre", $nombre, 'string'),
+//        array("descripcion", $descripcion, 'string'),
+//        array("precio", $precio, 'int'),
+//        array("categoria", $categoria, 'int')
+//    ));
+//
+//    $id = $cn->ultimoIdInsert();
+//    if (is_uploaded_file($imagen)) {
+//        move_uploaded_file($imagen, "img_productos/" . $id);
+//    }
+//}
+//
+//function cantidadPaginasCategoria($idCategoria, $filtro="") {
+//    $filtro = '%' . $filtro . '%';
+//    $tamano = 4;
+//    $cn = abrirConexion();
+//    $cn->consulta(
+//            'SELECT count(*) as total FROM productos '
+//            . 'WHERE categoria_id = :id AND nombre LIKE :filtro ', array(
+//        array("id", $idCategoria, 'int'),
+//        array("filtro", $filtro, 'string')
+//    ));
+//
+//    $fila = $cn->siguienteRegistro();
+//    $total = $fila["total"];
+//    $paginas = ceil($total / $tamano);
+//    if ($paginas == 0) {
+//        $paginas = 1;
+//    };
+//    return $paginas;
+//}
 
 function pagesPerGenre($idGen, $filtro="") {
     $filtro = '%' . $filtro . '%';
@@ -328,6 +328,29 @@ function getPendingReviews(){
             . 'FROM comentarios JOIN usuarios ON id_usuario = usuarios.id '
             . 'WHERE comentarios.estado = "PENDIENTE" ');
     return $cn->restantesRegistros();
+}
+
+function denyReview($id){
+    $cn = abrirConexion();
+    $cn->consulta('UPDATE comentarios SET estado = "RECHAZADO" WHERE id = :id', array(
+        array("id", $id, 'int')
+    ));
+}
+
+function acceptReview($id){
+    $cn = abrirConexion();
+    $cn->consulta('UPDATE comentarios SET estado = "APROBADO" WHERE id = :id', array(
+        array("id", $id, 'int')
+    ));
+}
+
+function updateScore($id){
+    $cn = abrirConexion();
+    $cn->consulta('UPDATE peliculas SET puntuacion = '
+            . '(SELECT AVG(puntuacion) FROM comentarios WHERE id_pelicula = :id AND estado = "APROBADO") '
+            . 'WHERE id = :id', array(
+        array("id", $id, 'int'),      
+    ));
 }
 
 function getSmarty() {

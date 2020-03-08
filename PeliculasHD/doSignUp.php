@@ -10,7 +10,11 @@ $areEmptyFields = strlen($alias) == 0 || strlen($password) == 0 || strlen($email
 if ($areEmptyFields) {
         header('location:index.php?err=signUpErrorEmptyFields');
         return;
-} 
+}
+elseif (strlen($password) < 6) {
+    header('location:index.php?err=signUpErrorPasswordLength');
+    return;
+}
 else {
     $password = md5($password);
     

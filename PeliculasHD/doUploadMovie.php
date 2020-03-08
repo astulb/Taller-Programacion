@@ -13,7 +13,7 @@ if (hayUsuarioAdmin()) {
     $image = $_FILES["image"]["tmp_name"];
     
     $areEmptyFields = strlen($title) == 0 || strlen($director) == 0 || strlen($synopsis) == 0 ||
-            strlen($youtube_trailer) == 0 ||  strlen($launch_date) == 0 ||  strlen($id_genre) == 0 ||
+            strlen($launch_date) == 0 ||  strlen($id_genre) == 0 ||
             !is_uploaded_file($image); 
             
     if ($areEmptyFields) {
