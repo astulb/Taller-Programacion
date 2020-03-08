@@ -1,27 +1,27 @@
 <?php
 
 require_once 'datos.php';
-//ini_set('display_errors', 1);
 
 # crear instancia de smarty
 $mySmarty = getSmarty();
 
 
-
+$movieId = 1;
 if (isset($_GET["movieId"])) {
     $movieId = $_GET["movieId"];
 }
-
-
+$pag = 1;
 if (isset($_GET["pag"])) {
     $pag = $_GET["pag"];
 }
 
+$reviews = getApprovedReviews($movieId, $pag);
+$pages = reviewPagesPerMovie($movieId);
+
 # setear variables
-//$mySmarty->assign("genre", $genre);
-$mySmarty->assign("reviews", getApprovedReviews($genId, $pag));
+$mySmarty->assign("reviews", $reviews);
 $mySmarty->assign("page", $pag);
-$mySmarty->assign("pages", reviewPagesPerMovie($movieId));
+$mySmarty->assign("pages", $pages);
 
 # mostrar el template
-$mySmarty->display('reviews-paginados.tpl');
+$mySmarty->display('reviews_paginados.tpl');

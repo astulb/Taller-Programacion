@@ -1,11 +1,9 @@
-var genre = 1;
 var pag = 1;
-var texto = "test";
 
 function cargar(movieId) {
     
-    texto = $("#texto-buscador").val();
-    genre = $("#genre-select").val();
+    console.log(movieId);
+    console.log(pag);
     
     $.ajax({
         url: "reviews_paginados.php",
@@ -20,12 +18,12 @@ function cargar(movieId) {
         
         $("#previous").click(function () {
             pag--;
-            cargar();
+            cargar(movieId);
         });
         
         $("#next").click(function () {
             pag++;
-            cargar();
+            cargar(movieId);
         });
 
     }).fail(function () {

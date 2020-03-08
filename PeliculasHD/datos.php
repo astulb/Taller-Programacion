@@ -293,6 +293,7 @@ function getApprovedReviews($movieId, $pag){
             'SELECT comentarios.id, comentarios.mensaje, comentarios.puntuacion, comentarios.estado, usuarios.alias '
             . 'FROM comentarios JOIN usuarios ON id_usuario = usuarios.id '
             . 'WHERE id_pelicula = :id AND estado = "APROBADO" '
+            . 'ORDER by id DESC '
             . 'LIMIT :offset, :tamano', array(
         array("id", $movieId, 'int'),
         array("offset", $offset, 'int'),
@@ -307,7 +308,7 @@ function reviewPagesPerMovie($movieId) {
     $cn = abrirConexion();
         
     $cn->consulta(
-        'SELECT count(*) as total FROM reviews '
+        'SELECT count(*) as total FROM comentarios '
         . 'WHERE id_pelicula = :movieId AND estado = "APROBADO" ', array(
     array("movieId", $movieId, 'int'),
     ));
