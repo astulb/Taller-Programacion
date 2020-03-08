@@ -11,15 +11,15 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="js/index.js"></script>
-                    
+            
         <title>{$movie.titulo}</title>
     </head>
-    
+        
     <body>
         {include file="navbar.tpl"}
         <div id="background-image" ><img src="img/backgroundImg.jpg"></div>    
         <div id="background-overlay"></div>
-            
+        
         <div class="main-content">
             <div id="movies">
                 <div class="movie-poster">
@@ -29,12 +29,12 @@
                     <div class="movie-title">
                         <span class="nombre-producto">{$movie.titulo}</span>
                     </div>
-                    
+                        
                     <div class="extra-data"> 
                         <div class="genre">{$movie.nombre} ({$movie.fecha_lanzamiento})</div>
                         <div class="rating">Score: {$movie.puntuacion}/10</div>
                     </div>
-                        
+                    
                     <div class="synopsis">
                         <h3>Synopsis</h3>
                         <p>
@@ -57,11 +57,11 @@
                             </iframe>
                         </div>
                     </div>
-               {/if}
+                {/if}
                 <div class="section" id="comments"> 
                     <div class="section-title">Reviews</div>
                     <div id="movie-reviews">
-                         <!--REVIEW USUARIO LOGEADO-->
+                        <!--REVIEW USUARIO LOGEADO-->
                         {if (isset($usuarioLogueado))}
                             <div class="review-imput">
                                 <form action="doInsertReview.php?id={$movie.id}" method="POST" enctype="multipart/form-data">                              
@@ -78,33 +78,36 @@
                                                 {/for}
                                             </select>
                                         </div>
-                                            <input type="submit" class="btn btn-primary ml-auto" value="Submit">
+                                        <input type="submit" class="btn btn-primary ml-auto" value="Submit">
                                     </div>
-                                        {if (isset($err))}
-                                            <script>
-                                                $(function() {
-                                                   alert("You already reviewed this movie");
-                                                });
-                                            </script>
-                                        {elseif (isset($msg))}
-                                            <script>
-                                                $(function() {
-                                                   alert("Review has been submitted for approval");
-                                                });
-                                            </script>   
-                                        {/if}
+                                    {if (isset($err))}
+                                        <script>
+                                            $(function() {
+                                                alert("You already reviewed this movie");
+                                            });
+                                        </script>
+                                    {elseif (isset($msg))}
+                                        <script>
+                                            $(function() {
+                                                alert("Review has been submitted for approval");
+                                            });
+                                        </script>   
+                                    {/if}
                                 </form>
                             </div>
-                        <!--REVIEW USUARIO LOGEADO-->
+                            <!--REVIEW USUARIO LOGEADO-->
                         {else}             
                             <div class="review-imput unloged">
                                 <a href="#signInModal" data-toggle="modal" data-target="#signInModal">Login to leave a review</a>
                             </div>  
                         {/if}
-                        {foreach from=$reviews item=rev}
-                            {include file="review.tpl" review=$rev}          
-                        {/foreach}
-                       
+                        <div id="review-list">
+                            {foreach from=$reviews item=rev}
+                                {include file="review.tpl" review=$rev}          
+                            {/foreach} 
+                        </div>
+                        
+                        
                     </div>
                 </div>
                 <div class="section" id="creators">

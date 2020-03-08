@@ -283,16 +283,42 @@ function insertReview($mensaje, $puntuacion, $usuarioId, $movieID, $estado){
     }
     return false;
 }
-
-function getApprovedReviews($movieId){
+    
+function getApprovedReviews($movieId, $pag){
+    $tamano = 5;
+    $offset = ($pag - 1) * $tamano;
+        
     $cn = abrirConexion();
     $cn->consulta(
             'SELECT comentarios.id, comentarios.mensaje, comentarios.puntuacion, comentarios.estado, usuarios.alias '
             . 'FROM comentarios JOIN usuarios ON id_usuario = usuarios.id '
-            . 'WHERE id_pelicula = :id AND estado = "APROBADO" ', array(
-        array("id", $movieId, 'int')
+            . 'WHERE id_pelicula = :id AND estado = "APROBADO" '
+            . 'LIMIT :offset, :tamano', array(
+        array("id", $movieId, 'int'),
+        array("offset", $offset, 'int'),
+        array("tamano", $tamano, 'int')
     ));
     return $cn->restantesRegistros();
+}
+
+function reviewPagesPerMovie($movieId) {
+    $tamano = 5;
+        
+    $cn = abrirConexion();
+        
+    $cn->consulta(
+        'SELECT count(*) as total FROM reviews '
+        . 'WHERE id_pelicula = :movieId AND estado = "APROBADO" ', array(
+    array("movieId", $movieId, 'int'),
+    ));
+        
+    $fila = $cn->siguienteRegistro();
+    $total = $fila["total"];
+    $paginas = ceil($total / $tamano);
+    if ($paginas == 0) {
+        $paginas = 1;
+    };
+    return $paginas;
 }
 
 function getPendingReviews(){
