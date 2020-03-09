@@ -2,9 +2,11 @@
 
 require_once 'libs/Smarty.class.php';
 require_once 'class.Conexion.BD.php';
+require_once 'configuracion.php';
+
 
 function abrirConexion() {
-    $cn = new ConexionBD("mysql", "localhost", "guia_cine", "root", "root");
+    $cn = new ConexionBD($GLOBALS['SQL_language'], $GLOBALS['host'], $GLOBALS['DB_name'], $GLOBALS['vm_user'], $GLOBALS['vm_pass']);
     $cn->conectar();
     return $cn;
 }
